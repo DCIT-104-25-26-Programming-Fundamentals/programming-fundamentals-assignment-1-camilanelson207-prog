@@ -41,7 +41,35 @@
 #
 
 #
-# =============================================================================
+# =================== ==========================================================
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def grading_system(student_score):
+    """Return the letter grade based on the student's score."""
+    if student_score < 0 or student_score > 100:
+        return None
+    elif student_score >= 80:
+        return "A"
+    elif student_score >= 70:
+        return "B"
+    elif student_score >= 60:
+        return "C"
+    elif student_score >= 50:
+        return "D"
+    else:
+        return "F"
+
+
+def main():
+    score = int(input("Enter student score (0-100): "))
+    grade = grading_system(score)
+
+    if grade is None:
+        print("Error: Score must be between 0 and 100.")
+    else:
+        print(f"Grade: {grade}")
+
+
+if __name__ == "__main__":
+    main()
