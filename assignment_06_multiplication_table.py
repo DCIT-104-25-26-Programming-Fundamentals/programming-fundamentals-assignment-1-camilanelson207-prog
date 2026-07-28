@@ -55,3 +55,69 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def show_table(number):
+    print("\nMultiplication Table for " + str(number) + ":")
+
+    
+    counter = 1
+    while counter <= 12:
+        answer = number * counter
+
+        
+        print(str(number) + "  x " + str(counter).rjust(2) + " = " + str(answer))
+
+        counter = counter + 1
+
+
+
+def show_all_tables(n):
+    
+    if n <= 0:
+        print("Error: N must be a positive integer.")
+        return
+
+    
+    current_number = 1
+    while current_number <= n:
+        show_table(current_number)
+
+       
+        print("---------------------------")
+
+        current_number = current_number + 1
+
+
+
+def main():
+ 
+    print("   MULTIPLICATION TABLE MENU")
+    
+
+    keep_going = True
+
+    while keep_going:
+        print("\nWhat would you like to do?")
+        print("A - Show the table for a single number")
+        print("B - Show tables from 1 to N")
+        print("Q - Quit the program")
+
+        choice = input("Enter your choice: ").upper()
+
+        if choice == "A":
+            number = int(input("Enter a number: "))
+            show_table(number)
+
+        elif choice == "B":
+            n = int(input("Enter a value for N: "))
+            show_all_tables(n)
+
+        elif choice == "Q":
+            print("\nGoodbye!")
+            keep_going = False
+
+        else:
+            print("Invalid choice. Please type A, B, or Q.")
+
+
+
+main()
