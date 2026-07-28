@@ -90,3 +90,127 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+
+students = []
+
+def register_student():
+    name = input("Student name: ").strip()
+    student_id = input("Student ID: ").strip()
+
+    if not student_id.isdigit():
+        print("Invalid ID. Please enter a numeric student ID.")
+        return
+
+    student_id = int(student_id)
+
+    
+    for student in students:
+        if student["id"] == student_id:
+            print(f"A student with ID {student_id} already exists.")
+            return
+
+    num_scores_input = input("How many scores? ").strip()
+    if not num_scores_input.isdigit() or int(num_scores_input) <= 0:
+        print("Invalid number of scores.")
+        return
+
+    num_scores = int(num_scores_input)
+    scores = []
+
+    for i in range(1, num_scores + 1):
+        while True:
+            score_input = input(f"Enter score {i}: ").strip()
+            try:
+                score = float(score_input)
+                scores.append(score)
+                break
+            except ValueError:
+                print("Please enter a valid number.")
+
+    student = {
+        "name": name,
+        "id": student_id,
+        "scores": scores
+    }
+    students.append(student)
+    print(f'Student "{name}" added successfully.')
+
+
+def calculate_average(scores):
+    if not scores:
+        return 0
+    return round(sum(scores) / len(scores), 2)
+
+
+def show_all_students():
+    if not students:
+        print("No students have been added yet.")
+        return
+
+    header = f"{'Name':<15}{'ID':<12}{'Scores':<20}{'Average':<10}"
+    line = "-" * len(header)
+
+    print(line)
+    print(header)
+    print(line)
+
+    for student in students:
+        scores_str = ", ".join(format_score(s) for s in student["scores"])
+        average = calculate_average(student["scores"])
+        print(f"{student['name']:<15}{student['id']:<12}{scores_str:<20}{average:<10}")
+
+    print(line)
+
+
+def format_score(score):
+    if score == int(score):
+        return str(int(score))
+    return str(score)
+
+
+def lookup_average():
+    id_input = input("Enter student ID: ").strip()
+
+    if not id_input.isdigit():
+        print("Invalid ID format.")
+        return
+
+    student_id = int(id_input)
+
+    for student in students:
+        if student["id"] == student_id:
+            average = calculate_average(student["scores"])
+            print(f"{student['name']}'s average score: {average}")
+            return
+
+    print(f"No student found with ID {student_id}.")
+
+
+def show_menu():
+    print("   STUDENT RECORD SYSTEM MENU")
+    print("1. Add student")
+    print("2. Display all students")
+    print("3. Calculate average score")
+    print("4. Quit")
+
+
+def main():
+    while True:
+        show_menu()
+        choice = input("Enter your choice (1-4): ").strip()
+
+        if choice == "1":
+            register_student()
+        elif choice == "2":
+            show_all_students()
+        elif choice == "3":
+            lookup_average()
+        elif choice == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
+
+if __name__ == "__main__":
+    main()
